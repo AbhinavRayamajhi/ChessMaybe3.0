@@ -22,7 +22,7 @@ void generateKnightMasks(Bitboard* knightTable) {
 }
 
 void generatePawnAttackMasks(Bitboard* pawnAttackTable){
-    // For black squares index sq + 64, gives us the correct masks
+    // For black pawns index sq + 64, gives us the correct masks
     for (int sq = 0; sq < 128; ++sq) {
 
         Bitboard mask = 0ULL;
@@ -43,7 +43,7 @@ void generatePawnAttackMasks(Bitboard* pawnAttackTable){
 }
 
 void generatePawnPushMasks(Bitboard* pawnTable) {
-    // For black squares index sq + 64, gives us the correct masks
+    // For black pawns index sq + 64, gives us the correct masks
     for(int sq = 0; sq < 128; ++sq) {
 
         Bitboard mask = 0ULL;
