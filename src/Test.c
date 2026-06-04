@@ -9,6 +9,8 @@ void runAllTests() {
     BishopTableTest();
     RookAttackForBlockersTest();
     BishopAttackForBlockersTest();
+    MagicTableTests();
+
     printf("%s\n", "All tests passed successfully!");
 }
 
@@ -92,4 +94,29 @@ void BishopAttackForBlockersTest() {
     ASSERT(popCount(bishopAttacksForBlockers(bb, H1)) == 6, "With blockers, Bishop on H1 should have 6 attacks.");
     ASSERT(popCount(bishopAttacksForBlockers(bb, H8)) == 5, "With blockers, Bishop on H9 should have 5 attacks.");
     printf("%s\n", "Bishop Attacks For Blocker Tests passed...");
+}
+
+void MagicTableTests() {
+
+    Bitboard bb = 0ULL;
+    setSq(bb, A4);
+    setSq(bb, E1);
+
+    ASSERT(rookAttacksForBlockers(bb, A1) == getRookAttacks(bb, A1), "Rook attacks not matching");
+    ASSERT(rookAttacksForBlockers(bb, A3) == getRookAttacks(bb, A3), "Rook attacks not matching");
+    ASSERT(rookAttacksForBlockers(bb, A8) == getRookAttacks(bb, A8), "Rook attacks not matching");
+    ASSERT(rookAttacksForBlockers(bb, H1) == getRookAttacks(bb, H1), "Rook attacks not matching");
+    ASSERT(rookAttacksForBlockers(bb, H8) == getRookAttacks(bb, H8), "Rook attacks not matching");
+    printf("%s\n", "Rook Magic verified..");
+
+    bb = 0ULL;
+    setSq(bb, C3);
+    setSq(bb, B7);
+
+    ASSERT(bishopAttacksForBlockers(bb, A1) == getBishopAttacks(bb, A1), "Bishop attacks not matching");
+    ASSERT(bishopAttacksForBlockers(bb, A3) == getBishopAttacks(bb, A3), "Bishop attacks not matching");
+    ASSERT(bishopAttacksForBlockers(bb, A8) == getBishopAttacks(bb, A8), "Bishop attacks not matching");
+    ASSERT(bishopAttacksForBlockers(bb, H1) == getBishopAttacks(bb, H1), "Bishop attacks not matching");
+    ASSERT(bishopAttacksForBlockers(bb, H8) == getBishopAttacks(bb, H8), "Bishop attacks not matching");
+    printf("%s\n", "Bishop Magic verified..");
 }

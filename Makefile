@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
-SRC = src/main.c src/MaskGen.c src/Test.c src/Magic.c
+SRC = src/main.c src/MaskGen.c src/Test.c src/Magic.c src/MoveGen.c
 OUT = build/main.exe
 
 all:

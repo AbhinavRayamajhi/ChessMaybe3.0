@@ -212,3 +212,26 @@ void findAllMagics() {
         printf("0x%lxULL, \n", magic);
     }
 }
+
+void initMagicTables() {
+
+    for (int sq = 0; sq < 64; ++sq) {
+
+        int rookBits = popCount(rookTable[sq]);
+        int bishopBits = popCount(bishopTable[sq]);
+
+        Bitboard subset = 0ULL;
+        do {
+            uint64_t rookIndex = (subset * ROOK_MAGICS[sq]) >> (64 - rookBits);
+            rookAttackTable[sq][rookIndex] = rookAttacksForBlockers(subset, sq);
+            subset = (subset - rookTable[sq]) & rookTable[sq];
+        } while (subset != 0ULL);
+
+        subset = 0ULL;
+        do {
+            uint64_t bishopIndex = (subset * BISHOP_MAGICS[sq]) >> (64 - bishopBits);
+            bishopAttackTable[sq][bishopIndex] = bishopAttacksForBlockers(subset, sq);
+            subset = (subset - bishopTable[sq]) & bishopTable[sq];
+        } while (subset != 0ULL);
+    }
+}

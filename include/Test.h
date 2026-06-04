@@ -6,6 +6,7 @@
 #include "Types.h"
 #include "MaskGen.h"
 #include "Magic.h"
+#include "MoveGen.h"
 
 #define ASSERT(cond, msg) if(!(cond)) {printf("Failed Test: %s\n", msg); exit(1);}
 
@@ -19,5 +20,6 @@ void BishopTableTest();
 
 void RookAttackForBlockersTest();
 void BishopAttackForBlockersTest();
+void MagicTableTests();
 
 #endif

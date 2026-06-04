@@ -1,5 +1,6 @@
 #include "../include/MaskGen.h"
 #include "../include/Test.h"
+#include "../include/Magic.h"
 
 int main() {
 
@@ -8,6 +9,7 @@ int main() {
     generateKingMasks();
     generateRookMasks();
     generateBishopMasks();
+    initMagicTables();
 
     /*
     printBitboard(      kingTable[E8]);
@@ -29,7 +31,6 @@ int main() {
     */
 
     runAllTests();
-    findAllMagics();
 
     return 0;
 }
