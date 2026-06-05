@@ -1,0 +1,19 @@
+#ifndef BOARD_H
+#define BOARD_H
+
+#include "Bitboard.h"
+#include "Types.h"
+
+typedef struct {
+    Bitboard pieces[COLOR_COUNT][PIECE_COUNT];
+    Bitboard occ[COLOR_COUNT + 1];
+    Color sideToMove;
+    CastlingRights castlingRight;
+    Square enPassantSq;
+    int halfMoveClock;
+    int fullMoveClock;
+} Board;
+
+Board getInitialBoard();
+
+#endif

@@ -68,7 +68,7 @@ static const Bitboard ANTI_DIAGS[] = {ANTI_DIAG_1, ANTI_DIAG_2, ANTI_DIAG_3, ANT
 	ANTI_DIAG_6, ANTI_DIAG_7, ANTI_DIAG_8, ANTI_DIAG_9, ANTI_DIAG_10, ANTI_DIAG_11, ANTI_DIAG_12, 
 	ANTI_DIAG_13, ANTI_DIAG_14, ANTI_DIAG_15};
 
-typedef enum {
+typedef enum : uint8_t{
 	A1 = 0, B1, C1, D1, E1, F1, G1, H1,
 	    A2, B2, C2, D2, E2, F2, G2, H2,
 	    A3, B3, C3, D3, E3, F3, G3, H3,
@@ -76,11 +76,12 @@ typedef enum {
 	    A5, B5, C5, D5, E5, F5, G5, H5,
 	    A6, B6, C6, D6, E6, F6, G6, H6,
 	    A7, B7, C7, D7, E7, F7, G7, H7,
-	    A8, B8, C8, D8, E8, F8, G8, H8
+	    A8, B8, C8, D8, E8, F8, G8, H8,
+		NONE
 } Square;
 
-typedef enum {
-	NORTH,
+typedef enum : uint8_t{
+	NORTH = 0,
 	SOUTH,
 	EAST,
 	WEST,
@@ -98,9 +99,42 @@ typedef enum {
 	SOUTH_WEST_WEST,
 } Direction;
 
-typedef enum {
+typedef enum : uint8_t {
     WHITE = 0,
-    BLACK
+    BLACK,
+	BOTH,
+	COLOR_COUNT = BOTH
 } Color;
 
+typedef enum : uint8_t {
+	PAWN = 0,
+	KNIGHT,
+	BISHOP,
+	ROOK,
+	QUEEN,
+	KING,
+	PIECE_COUNT
+} Piece;
+
+typedef enum : uint8_t {
+	NO_CASTLING,
+	WHITE_KINGSIDE,
+	WHITE_QUEENSIDE = WHITE_KINGSIDE << 1,
+	BLACK_KINGSIDE  = WHITE_KINGSIDE << 2,
+	BLACK_QUEENSIDE = WHITE_KINGSIDE << 3,
+
+	KING_SIDE  = WHITE_KINGSIDE | BLACK_KINGSIDE,
+	QUEEN_SIDE = WHITE_QUEENSIDE | BLACK_QUEENSIDE,
+
+	WHITE_CASTLING = WHITE_KINGSIDE | WHITE_QUEENSIDE,
+	BLACK_CASTLING = BLACK_KINGSIDE | BLACK_QUEENSIDE,
+	ALL_CASTLING   = WHITE_CASTLING | BLACK_CASTLING
+} CastlingRights;
+
+typedef enum : uint16_t{
+	NORMAL,
+	PROMOTION  = 1 << 14,
+	EN_PASSANT = 2 << 14,
+	CASTLING   = 3 << 14
+} MoveType;
 #endif

@@ -1,6 +1,7 @@
 #include "../include/MaskGen.h"
 #include "../include/Test.h"
 #include "../include/Magic.h"
+#include "../include/Board.h"
 
 int main() {
 
@@ -28,6 +29,15 @@ int main() {
     setSq(bb, C3);
     setSq(bb, B7);
     printBitboard(bishopAttacksForBlockers(bb, A1));
+
+    Board board = getInitialBoard();
+
+    printBitboard(board.pieces[BLACK][PAWN]  );
+    printBitboard(board.pieces[BLACK][KNIGHT]);
+    printBitboard(board.pieces[BLACK][BISHOP]);
+    printBitboard(board.pieces[BLACK][ROOK]  );
+    printBitboard(board.pieces[BLACK][QUEEN] );
+    printBitboard(board.pieces[BLACK][KING]  );
     */
 
     runAllTests();
