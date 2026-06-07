@@ -6,7 +6,7 @@
 
 //  0 -  5 : start sq
 //  6 - 11 : target sq
-// 12 - 13 : promotion type
+// 12 - 13 : promotion type: no promotion piece will be passed as Pawn
 // 14 - 15 : move type(0- normal, 1 - promotion, 2 - en passant, 3 - castling)
 typedef uint16_t Move;
 

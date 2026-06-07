@@ -114,7 +114,8 @@ typedef enum : uint8_t {
 	QUEEN,
 	KING,
 	PIECE_COUNT,
-	NO_PIECE = PAWN
+	NO_PIECE,
+	NO_PROMOTION_PIECE = PAWN
 } Piece;
 
 typedef enum : uint8_t {

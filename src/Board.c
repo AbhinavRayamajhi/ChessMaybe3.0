@@ -34,3 +34,14 @@ Board getInitialBoard() {
 
     return res;
 }
+
+void updateOcc(Board* b) {
+    b->occ[WHITE] = b->occ[BLACK] = b->occ[BOTH] = 0ULL;
+
+    for (int p = 0; p < PIECE_COUNT; ++p) {
+        b->occ[WHITE] |= b->pieces[WHITE][p];
+        b->occ[BLACK] |= b->pieces[BLACK][p];
+    }
+
+    b->occ[BOTH] = b->occ[WHITE] | b->occ[BLACK];
+}

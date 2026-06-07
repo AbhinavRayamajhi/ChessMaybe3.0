@@ -15,5 +15,6 @@ typedef struct {
 } Board;
 
 Board getInitialBoard();
+void updateOcc(Board* b);
 
 #endif

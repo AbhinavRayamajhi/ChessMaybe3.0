@@ -31,7 +31,7 @@ void enumerateKnightMoves(MoveList* moveList, Board* board) {
             Square target = getLSB(attacks);
             clearLSB(attacks);
 
-            addMove(moveList, make(start, target, NO_PIECE, NORMAL));
+            addMove(moveList, make(start, target, NO_PROMOTION_PIECE, NORMAL));
         }
     }
 }
@@ -48,7 +48,7 @@ void enumerateKingMoves(MoveList* moveList, Board* board) {
         Square target = getLSB(attacks);
         clearLSB(attacks);
 
-        addMove(moveList, make(start, target, NO_PIECE, NORMAL));
+        addMove(moveList, make(start, target, NO_PROMOTION_PIECE, NORMAL));
     }
 
     // TODO: Square check required to add castling moves
@@ -57,22 +57,22 @@ void enumerateKingMoves(MoveList* moveList, Board* board) {
 
         if((board->castlingRight & WHITE_KINGSIDE) && !(board->occ[BOTH] & WHITE_OO)) {
 
-            addMove(moveList, make(E1, G1, NO_PIECE, CASTLING));
+            addMove(moveList, make(E1, G1, NO_PROMOTION_PIECE, CASTLING));
         }
         if((board->castlingRight & WHITE_QUEENSIDE) && !(board->occ[BOTH] & WHITE_OOO)) {
 
-            addMove(moveList, make(E1, C1, NO_PIECE, CASTLING));
+            addMove(moveList, make(E1, C1, NO_PROMOTION_PIECE, CASTLING));
         }
     }
     else if(board->sideToMove && (board->castlingRight & BLACK_CASTLING)) {
 
         if((board->castlingRight & BLACK_KINGSIDE) && !(board->occ[BOTH] & BLACK_OO)) {
 
-            addMove(moveList, make(E8, G8, NO_PIECE, CASTLING));
+            addMove(moveList, make(E8, G8, NO_PROMOTION_PIECE, CASTLING));
         }
         if((board->castlingRight & BLACK_QUEENSIDE) && !(board->occ[BOTH] & BLACK_OOO)) {
 
-            addMove(moveList, make(E8, C8, NO_PIECE, CASTLING));
+            addMove(moveList, make(E8, C8, NO_PROMOTION_PIECE, CASTLING));
         }
     }
 }
@@ -94,7 +94,7 @@ void enumerateRookMoves(MoveList* moveList, Board* board) {
             Square target = getLSB(attacks);
             clearLSB(attacks);
 
-            addMove(moveList, make(start, target, NO_PIECE, NORMAL));
+            addMove(moveList, make(start, target, NO_PROMOTION_PIECE, NORMAL));
         }
     }
 }
@@ -116,7 +116,7 @@ void enumerateBishopMoves(MoveList* moveList, Board* board) {
             Square target = getLSB(attacks);
             clearLSB(attacks);
 
-            addMove(moveList, make(start, target, NO_PIECE, NORMAL));
+            addMove(moveList, make(start, target, NO_PROMOTION_PIECE, NORMAL));
         }
     }
 }
@@ -138,7 +138,7 @@ void enumerateQueenMoves(MoveList* moveList, Board* board) {
             Square target = getLSB(attacks);
             clearLSB(attacks);
 
-            addMove(moveList, make(start, target, NO_PIECE, NORMAL));
+            addMove(moveList, make(start, target, NO_PROMOTION_PIECE, NORMAL));
         }
     }
 }
@@ -175,7 +175,7 @@ void enumeratePawnMoves(MoveList* moveList, Board* board) {
         }
         else {
 
-            addMove(moveList, make(start, target, NO_PIECE, NORMAL));
+            addMove(moveList, make(start, target, NO_PROMOTION_PIECE, NORMAL));
         }
     }
 
@@ -187,7 +187,7 @@ void enumeratePawnMoves(MoveList* moveList, Board* board) {
         clearLSB(doublePush);
         Square start = target - (board->sideToMove ? -16 : 16);
 
-        addMove(moveList, make(start, target, NO_PIECE, NORMAL));
+        addMove(moveList, make(start, target, NO_PROMOTION_PIECE, NORMAL));
     }
 
     Bitboard leftAttacks = pawnLeftAttack(pawns, board->sideToMove) & enemies;
@@ -215,7 +215,7 @@ void enumeratePawnMoves(MoveList* moveList, Board* board) {
         }
         else {
 
-            addMove(moveList, make(start, target, NO_PIECE, NORMAL));
+            addMove(moveList, make(start, target, NO_PROMOTION_PIECE, NORMAL));
         }
     }
 
@@ -244,7 +244,7 @@ void enumeratePawnMoves(MoveList* moveList, Board* board) {
         }
         else {
 
-            addMove(moveList, make(start, target, NO_PIECE, NORMAL));
+            addMove(moveList, make(start, target, NO_PROMOTION_PIECE, NORMAL));
         }
     }
 
@@ -256,12 +256,12 @@ void enumeratePawnMoves(MoveList* moveList, Board* board) {
         if (pawnLeftAttack(pawns, board->sideToMove) & enPassant) {
 
             Square start = board->enPassantSq + (board->sideToMove ? 9 : -7);
-            addMove(moveList, make(start, board->enPassantSq, NO_PIECE, EN_PASSANT));
+            addMove(moveList, make(start, board->enPassantSq, NO_PROMOTION_PIECE, EN_PASSANT));
         }
         if (pawnRightAttack(pawns, board->sideToMove) & enPassant) {
 
             Square start = board->enPassantSq + (board->sideToMove ? 7 : -9);
-            addMove(moveList, make(start, board->enPassantSq, NO_PIECE, EN_PASSANT));
+            addMove(moveList, make(start, board->enPassantSq, NO_PROMOTION_PIECE, EN_PASSANT));
         }
     }
 }
