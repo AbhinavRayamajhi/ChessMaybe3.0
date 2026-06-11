@@ -38,16 +38,25 @@ int main() {
     printBitboard(board.pieces[BLACK][ROOK]  );
     printBitboard(board.pieces[BLACK][QUEEN] );
     printBitboard(board.pieces[BLACK][KING]  );
+    runAllTableTests();
+    
+    History h;
+    Board board = getBoardFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    Move m1 = make(D2, D4, NO_PROMOTION_PIECE, NORMAL);
+    Move m2 = make(C7, C5, NO_PROMOTION_PIECE, NORMAL);
+    Move m3 = make(E1, D2, NO_PROMOTION_PIECE, NORMAL);
+    Move m4 = make(C5, D4, NO_PROMOTION_PIECE, NORMAL);
+    makeMove(&board, &h, m1);
+    makeMove(&board, &h, m2);
+    makeMove(&board, &h, m3);
+    makeMove(&board, &h, m4);
+    int depth = 5;
+    int debug = 0;
+    int deeperSearch = 0;
+
+    printf("%d\n", perft(&board, depth, depth, debug, deeperSearch));
     */
 
-    // runAllTests();
-    History h;
-    Board board = getInitialBoard();
-    Move m = make(E2, E3, NO_PROMOTION_PIECE, NORMAL);
-    int depth = 5;
-    int debug = 1;
-
-    //makeMove(&board, &h, m);
-    printf("%d\n", perft(&board, depth, depth, debug));
+    runAllPerftTests();
     return 0;
 }

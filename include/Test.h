@@ -10,7 +10,7 @@
 
 #define ASSERT(cond, msg) if(!(cond)) {printf("Failed Test: %s\n", msg); exit(1);}
 
-void runAllTests();
+void runAllTableTests();
 
 void KnightTableTest();
 void PawnAttackTableTest();
@@ -22,6 +22,7 @@ void RookAttackForBlockersTest();
 void BishopAttackForBlockersTest();
 void MagicTableTests();
 
-int perft(Board* board, int depth, int rootDepth, int debug);
+int perft(Board * board, int depth, int rootDepth, int debug, int deeperSearch);
+void runAllPerftTests();
 
 #endif

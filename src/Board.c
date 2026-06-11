@@ -35,6 +35,101 @@ Board getInitialBoard() {
     return res;
 }
 
+Board getZeroBoard() {
+    Board board;
+
+    for (Piece p = 0; p < 6; ++p) {
+        board.pieces[WHITE][p] = 0ULL;
+        board.pieces[BLACK][p] = 0ULL;
+    }
+    updateOcc(&board);
+    board.sideToMove = 0;
+    board.castlingRight = 0;
+    board.enPassantSq = NONE;
+    board.halfMoveClock = 0;
+    board.fullMoveClock = 0;
+
+    return board;
+}
+
+Board getBoardFromFen(const char* FEN) {
+
+    int rank = 7;
+    int file = 0;
+
+    Board board = getZeroBoard();
+
+    while (*FEN != ' ') {
+
+        Square sq = rank * 8 + file;
+        switch (*FEN) {
+
+        case '1': file++; break;
+        case '2': file += 2; break;
+        case '3': file += 3; break;
+        case '4': file += 4; break;
+        case '5': file += 5; break;
+        case '6': file += 6; break;
+        case '7': file += 7; break;
+        case '8': file += 8; break;
+
+        case 'p': setSq(board.pieces[BLACK][PAWN], sq); file++; break;
+        case 'n': setSq(board.pieces[BLACK][KNIGHT], sq); file++; break;
+        case 'b': setSq(board.pieces[BLACK][BISHOP], sq); file++; break;
+        case 'r': setSq(board.pieces[BLACK][ROOK], sq); file++; break;
+        case 'q': setSq(board.pieces[BLACK][QUEEN], sq); file++; break;
+        case 'k': setSq(board.pieces[BLACK][KING], sq); file++; break;
+            
+        case 'P': setSq(board.pieces[WHITE][PAWN], sq); file++; break;
+        case 'N': setSq(board.pieces[WHITE][KNIGHT], sq); file++; break;
+        case 'B': setSq(board.pieces[WHITE][BISHOP], sq); file++; break;
+        case 'R': setSq(board.pieces[WHITE][ROOK], sq); file++; break;
+        case 'Q': setSq(board.pieces[WHITE][QUEEN], sq); file++; break;
+        case 'K': setSq(board.pieces[WHITE][KING], sq); file++; break;
+
+        default: break;
+        }
+
+        if (file == 8) {
+            file = 0;
+            rank--;
+        }
+        FEN++;
+    }
+
+    FEN++;
+    board.sideToMove = *FEN == 'w' ? WHITE : BLACK;
+    FEN += 2;
+
+    while (*FEN != '-' && *FEN != ' ') {
+        if (*FEN == 'K') board.castlingRight |= WHITE_KINGSIDE;
+        else if (*FEN == 'Q') board.castlingRight |= WHITE_QUEENSIDE;
+        else if (*FEN == 'k') board.castlingRight |= BLACK_KINGSIDE;
+        else if (*FEN == 'q') board.castlingRight |= BLACK_QUEENSIDE;
+        FEN++;
+    }
+
+    if (*FEN == '-') FEN++;
+    FEN++;
+
+    if (*FEN != '-') {
+        file = *FEN - 'a';
+        FEN++;
+        rank = *FEN - '1';
+        board.enPassantSq = rank * 8 + file;
+    }
+
+    FEN += 2;
+
+    board.halfMoveClock = atoi(FEN);
+    while (*FEN != ' ') FEN++;
+    FEN++;
+    board.fullMoveClock = atoi(FEN);
+
+    updateOcc(&board);
+    return board;
+}
+
 void updateOcc(Board* b) {
     b->occ[WHITE] = b->occ[BLACK] = b->occ[BOTH] = 0ULL;
 
@@ -45,3 +140,4 @@ void updateOcc(Board* b) {
 
     b->occ[BOTH] = b->occ[WHITE] | b->occ[BLACK];
 }
+

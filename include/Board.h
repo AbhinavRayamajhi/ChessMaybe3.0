@@ -1,6 +1,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+#include <stdlib.h>
 #include "Bitboard.h"
 #include "Types.h"
 
@@ -15,6 +16,7 @@ typedef struct {
 } Board;
 
 Board getInitialBoard();
+Board getBoardFromFen(const char* FEN);
 void updateOcc(Board* b);
 
 #endif

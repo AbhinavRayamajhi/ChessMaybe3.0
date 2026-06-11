@@ -269,8 +269,8 @@ Bitboard getSquareAttackers(Board* board, Square sq) {
     Bitboard attackers = 0ULL;
     Bitboard self = 1ULL << sq;
 
-    attackers |= board->pieces[board->sideToMove][PAWN] & (pawnLeftAttack(self, board->sideToMove)
-        | pawnRightAttack(self, board->sideToMove));
+    attackers |= board->pieces[board->sideToMove][PAWN] & (pawnLeftAttack(self, !board->sideToMove)
+        | pawnRightAttack(self, !board->sideToMove));
     attackers |= board->pieces[board->sideToMove][KNIGHT] & knightTable[sq];
     attackers |= (board->pieces[board->sideToMove][BISHOP] | board->pieces[board->sideToMove][QUEEN])
         & getBishopAttacks(board->occ[BOTH], sq);
@@ -285,8 +285,8 @@ void generateLegalMoves(MoveList* moveList, Board* board) {
 
     enumeratePawnMoves(moveList, board);
     enumerateKnightMoves(moveList, board);
-    enumerateRookMoves(moveList, board);
     enumerateBishopMoves(moveList, board);
+    enumerateRookMoves(moveList, board);
     enumerateQueenMoves(moveList, board);
     enumerateKingMoves(moveList, board);
 
